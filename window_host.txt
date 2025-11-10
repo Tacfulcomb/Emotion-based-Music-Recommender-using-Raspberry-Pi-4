@@ -1,0 +1,11 @@
+# --- For data_converter.py ---
+pandas==2.3.3
+
+# --- For model_converter.py ---
+# This is the full, heavy tensorflow package
+tensorflow==2.20.0
+
+# --- For embedded_app.py and test_embedded.py (testing on PC) ---
+opencv-python==4.12.0.88
+psutil==7.1.0
+pygame
