@@ -1,0 +1,11 @@
+*.log
+__pycache__/
+virtual_env/
+
+# Generated Assets (IMPORTANT: Do NOT track these!)
+*.tflite
+*.db
+*.sqlite3
+
+# OS files
+.DS_Store
