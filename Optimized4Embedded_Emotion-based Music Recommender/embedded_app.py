@@ -68,7 +68,7 @@ def get_recommendations_from_db(emotion_list):
             if limit <= 0: continue 
 
             query = f"""
-                SELECT name, artist, link
+                SELECT name, link
                 FROM {DB_TABLE_NAME}
                 WHERE emotion_category = ? 
                 AND link IS NOT NULL AND link != '' 
@@ -180,7 +180,7 @@ def main():
                 for i, rect in enumerate(song_rects):
                     if rect.collidepoint(mouse_pos):
                         if i < len(recommendations):
-                            song_filepath = recommendations[i][2] # Get the filepath
+                            song_filepath = recommendations[i][1] # Get the filepath
                             song_name = recommendations[i][0]
                             
                             if not os.path.exists(song_filepath):
@@ -290,13 +290,13 @@ def main():
             # --- Process frame if still scanning ---
             elif cap and cap.isOpened():
                 ret, frame = cap.read()
-                display_frame = frame.copy() 
 
                 if ret:
                     # --- Pre-processing ---
+                    display_frame = frame.copy()
                     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(40, 40))
-
+    
                     # --- Inference ---
                     for (x, y, w, h) in faces:
                         roi_gray = gray[y:y + h, x:x + w]
@@ -357,9 +357,9 @@ def main():
         if recommendations:
             draw_text(screen, "Recommendations (Click to play):", RECOMMENDATION_POS, font, (0, 255, 0))
             y_offset = FONT_SIZE + 5
-            for i, (name, artist, link) in enumerate(recommendations):
+            for i, (name,link) in enumerate(recommendations):
                 if i >= 25: break 
-                rec_text = f"{i+1}. {name[:30]} - {artist[:25]}"
+                rec_text = f"{i+1}. {name[:30]}"
                 
                 text_color = (255, 255, 255) # Default white
                 # Create a Rect for the text

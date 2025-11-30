@@ -47,7 +47,7 @@ def get_recommendations_from_db(emotion_list):
 
             # We select 'link' which is the file path
             query = f"""
-                SELECT name, artist, link 
+                SELECT name, link 
                 FROM {DB_TABLE_NAME}
                 WHERE emotion_category = ?
                 AND link IS NOT NULL AND link != ''
@@ -165,8 +165,8 @@ def main_test():
         return
 
     # Print the list once
-    for i, (name, artist, link) in enumerate(recommendations):
-        print(f" [{i+1}] {name} - {artist}")
+    for i, (name, link) in enumerate(recommendations):
+        print(f" [{i+1}] {name}")
 
     print("\nCommands:")
     print(" - Type a NUMBER (1-10) to play a song")
@@ -191,7 +191,7 @@ def main_test():
             idx = int(choice) - 1
             if 0 <= idx < len(recommendations):
                 song_name = recommendations[idx][0]
-                song_path = recommendations[idx][2]
+                song_path = recommendations[idx][1]
 
                 # Validate file existence
                 if os.path.exists(song_path):
