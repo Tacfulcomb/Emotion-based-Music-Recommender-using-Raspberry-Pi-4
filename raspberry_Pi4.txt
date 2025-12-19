@@ -1,0 +1,11 @@
+# --- CRITICAL: Must be < 2.0 to work with TFLite ---
+"numpy<2"
+
+# --- For embedded_app.py and test_embedded.py (running on Pi) ---
+opencv-python==4.12.0.88
+psutil==7.1.0
+pygame
+
+# --- TFLITE-RUNTIME ---
+# This package MUST be installed MANUALLY from a .whl file.
+# Do NOT add 'tflite-runtime' here, as it will fail.
